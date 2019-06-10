@@ -48,7 +48,20 @@ public class UserService {
 			new ObjectNotFoundException("Object not found");
 		}
 	}
-	
+
+	public User update(User user) {
+		log.info("LOGGER - USER SERVICE - Updating User: " + user.getId());
+		Optional<User> newUser = userRepository.findById(user.getId());
+		updateData(newUser.get(), user);
+		return userRepository.save(newUser.get());
+	}
+
+	public void updateData(User newUser, User user) {
+		log.info("LOGGER - USER SERVICE - Updating User - Copying data to a new object in order to save it");
+		newUser.setName(user.getName());
+		newUser.setEmail(user.getEmail());
+	}
+
 	public User fromDTO(UserDTO userDTO) {
 		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
 	}
