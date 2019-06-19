@@ -60,7 +60,7 @@ public class Instantiation implements CommandLineRunner {
 		log.info("LOGGER - CONFIG - Saving instantiated Posts");
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
-		log.info("LOGGER - CONFIG - Saving posts to the post owner");
+		log.info("LOGGER - CONFIG - Saving posts to their owners");
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
 		userRepository.save(maria);	
 		

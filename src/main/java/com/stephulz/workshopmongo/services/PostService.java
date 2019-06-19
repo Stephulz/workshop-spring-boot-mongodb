@@ -29,6 +29,7 @@ public class PostService {
 	
 	public List<Post> findByTitle(String text) {
 		log.info("LOGGER - POST SERVICE - Search Posts by Title");
-		return postRepository.findByTitleContainingIgnoreCase(text);
+		//return postRepository.findByTitleContainingIgnoreCase(text);
+		return postRepository.findByTitle(text);
 	}
 }
