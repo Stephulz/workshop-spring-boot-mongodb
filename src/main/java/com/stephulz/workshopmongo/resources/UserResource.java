@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.stephulz.workshopmongo.domain.Post;
 import com.stephulz.workshopmongo.domain.User;
 import com.stephulz.workshopmongo.dto.UserDTO;
 import com.stephulz.workshopmongo.services.UserService;
@@ -73,6 +73,14 @@ public class UserResource {
 		user.setId(id);
 		user = userService.update(user);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	@RequestMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		log.info("LOGGER - USER RESOURCE - Getting all User Posts");
+		User user = userService.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
 	}
 
 }
