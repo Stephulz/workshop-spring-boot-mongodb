@@ -24,7 +24,7 @@ public class PostResource {
 	@GetMapping
 	@RequestMapping(value = "/{id}")
 	public ResponseEntity<Post> findById(@PathVariable String id) {
-		log.info("LOGGER - USER RESOURCE - Getting Post by ID: " + id);
+		log.info("LOGGER - POST RESOURCE - Getting Post by ID: " + id);
 		Post post = postService.findById(id);
 		return ResponseEntity.ok().body(post);
 	}

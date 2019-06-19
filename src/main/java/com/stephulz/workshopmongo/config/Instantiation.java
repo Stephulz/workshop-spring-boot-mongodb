@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.stephulz.workshopmongo.domain.Post;
 import com.stephulz.workshopmongo.domain.User;
 import com.stephulz.workshopmongo.dto.AuthorDTO;
+import com.stephulz.workshopmongo.dto.CommentDTO;
 import com.stephulz.workshopmongo.repository.PostRepository;
 import com.stephulz.workshopmongo.repository.UserRepository;
 
@@ -48,13 +49,20 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Going for a trip", "I'm going to São Paulo, see ya!", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Good morning", "Today i woke up happy!", new AuthorDTO(maria));
 		
+		
+		CommentDTO comment1 = new CommentDTO("Have a good trip bro", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+		CommentDTO comment2 = new CommentDTO("Enjoy", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+		CommentDTO comment3 = new CommentDTO("Have an awesome day!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(comment1, comment2));
+		post2.getComments().addAll(Arrays.asList(comment3));
+		
 		log.info("LOGGER - CONFIG - Saving instantiated Posts");
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
 		log.info("LOGGER - CONFIG - Saving posts to the post owner");
 		maria.getPosts().addAll(Arrays.asList(post1, post2));
-		userRepository.save(maria);
+		userRepository.save(maria);	
 		
 	}
-
 }
